@@ -1,0 +1,15 @@
+﻿body {
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2); 
+}
+.card
+{
+}
+
+.bia {
+    transform: scale(1);
+    transition: all 0.3s ease;
+}
+.bia:hover {
+    transform: scale(1.025);
+    transition: all 0.3s ease;
+}

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Vinfast.Models.HinhAnhSP>
+
+@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    @@media (max-width: 576px) {
+        td img.card-img-top {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+
+    table th, table td {
+        vertical-align: middle !important;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+<div class="container my-4">
+    <h2 class="mb-4 text-primary">Danh sách ảnh cần update</h2>
+
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>Mã SP</th>
+                    <th>Loại ảnh</th>
+                    <th>Ảnh</th>
+                    <th>Mô tả ảnh</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.MaSP</td>
+                        <td>@item.LoaiAnh</td>
+                        <td style="width: 200px;">
+                            <div class="card shadow-sm">
+                                <img src="@Url.Content("~/Content/Images/" + item.Duongdan)" class="card-img-top img-fluid" alt="@item.MotaAnh" />
+                            </div>
+                        </td>
+                        <td>@item.MotaAnh</td>
+                        <td>
+                            <div class="d-flex flex-column flex-md-row gap-2">
+                                @Html.ActionLink("Sửa", "SuaMotAnh", "SanPham", new { maanh = item.MaAnh }, new { @class = "btn btn-primary w-100" })
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

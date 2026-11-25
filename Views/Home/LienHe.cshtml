@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "Liên hệ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .contact-card {
+        border-radius: 15px;
+        padding: 25px;
+        background: linear-gradient(135deg, #1f1f1f, #111);
+        color: #fff;
+        transition: all 0.3s ease;
+        border: 1px solid #333;
+    }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255,255,255,0.15);
+            border-color: #555;
+        }
+
+    .contact-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        background: #222;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin-right: 15px;
+    }
+
+    .contact-title {
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+    }
+
+    .contact-link {
+        color: #0d6efd;
+        text-decoration: underline;
+    }
+
+        .contact-link:hover {
+            color: #0b5ed7;
+            text-decoration: none;
+        }
+
+    .map-container {
+        border-radius: 15px;
+        overflow: hidden;
+        border: 1px solid #333;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+</style>
+
+<div class="container my-5">
+
+    <h2 class="fw-bold text-center mb-4">Liên hệ VinFast</h2>
+    <p class="text-center text-muted mb-5">
+        Mọi thắc mắc về sản phẩm, dịch vụ, hỗ trợ kỹ thuật, vui lòng liên hệ qua các kênh dưới đây.
+    </p>
+
+    <div class="row g-4 mb-5">
+        <div class="col-12 col-md-4">
+            <div class="contact-card">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="contact-icon"><i class="bi bi-telephone-fill"></i></div>
+                    <div><p class="contact-title">Hotline</p></div>
+                </div>
+                <p><strong>CSKH:</strong> 0939 907 163</p>
+                <p><strong>Bán hàng:</strong> 0939 907 163</p>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="contact-card">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="contact-icon"><i class="bi bi-envelope-fill"></i></div>
+                    <div><p class="contact-title">Email</p></div>
+                </div>
+                <p>cskh@vinfastshowroom.com</p>
+                <p>support@vinfastshowroom.com</p>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="contact-card">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                    <div><p class="contact-title">Địa chỉ</p></div>
+                </div>
+                <p>
+                    Tầng 99 – HUIT Center<br />
+                    Tây Thạnh, Tân Phú,<br />
+                    TP. Hồ Chí Minh, Việt Nam
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="map-container mb-5">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.123456789!2d106.62874276337061!3d10.807244074555188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752b0f70a07397%3A0x3618522127c73084!2sHUIT%20MEDIA!5e0!3m2!1svi!2s!4v<timestamp>" style="border:0; width: 100%; height: 500px" allowfullscreen="" loading="lazy">
+        </iframe>
+    </div>
+
+</div>

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Vinfast.Models.HoaDon>
+
+@{
+    Layout = null;
+}
+
+<style>
+    .hoadon-card {
+        transition: transform 0.2s;
+    }
+
+        .hoadon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+    .hoadon-header {
+        background-color: #007bff;
+        color: #fff;
+        font-weight: bold;
+    }
+</style>
+
+<div class="container py-4">
+    <h2 class="mb-4 fw-bold text-primary text-center">Danh Sách Hóa Đơn</h2>
+
+    <div class="row g-4">
+        @if (!Model.Any())
+        {
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    Bạn chưa có hóa đơn nào.
+                </div>
+            </div>
+        }
+        else
+        {
+            foreach (var hd in Model)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="card hoadon-card shadow-sm">
+                        <div class="card-header hoadon-header">
+                            Hóa Đơn 
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Ngày bán:</strong> @hd.NgayBan.ToString("dd/MM/yyyy HH:mm")</p>
+                            <p><strong>Tổng tiền:</strong> @String.Format("{0:N0}₫", hd.TongTien)</p>
+                            <p><strong>Giảm giá:</strong> @hd.GiamGia %</p>
+                            <p><strong>Thanh toán:</strong> @String.Format("{0:N0}₫", hd.ThanhToan)</p>
+                            <p><strong>Mã voucher:</strong> @(String.IsNullOrEmpty(hd.MaVoucher) ? "Không có" : hd.MaVoucher)</p>
+                            <p><strong>Trạng thái:</strong> @hd.TrangThai</p>
+                        </div>
+                       
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <h2 class="text-center mb-4">Thống kê doanh thu</h2>
+
+    <div class="card mb-4 p-3 shadow-sm">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label class="form-label">Từ ngày</label>
+                <input type="date" name="tuNgay" class="form-control" value="@ViewBag.TuNgay" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Đến ngày</label>
+                <input type="date" name="denNgay" class="form-control" value="@ViewBag.DenNgay" />
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Lọc</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+            <div class="card p-3 text-center shadow-sm">
+                <h5 class="fw-bold">Tổng doanh thu</h5>
+                <p class="fs-4 fw-bold">@String.Format("{0:N0}₫", ViewBag.TongDoanhThu)</p>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card p-3 text-center shadow-sm">
+                <h5 class="fw-bold">Số hóa đơn</h5>
+                <p class="fs-4 fw-bold">@ViewBag.SoHoaDon</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm p-3">
+        <canvas id="doanhThuChart"></canvas>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('doanhThuChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Json.Encode(ViewBag.ChartLabels)),
+                datasets: [{
+                    label: 'Doanh thu (₫)',
+                    data: @Html.Raw(Json.Encode(ViewBag.ChartValues)),
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value){ return value.toLocaleString() + "₫"; }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+}

@@ -1,0 +1,157 @@
+﻿@model Vinfast.Models.NguoiDung
+
+@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .card-header {
+        background-color: #007bff;
+        color: white;
+        font-weight: bold;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-control-static {
+        font-weight: 500;
+        padding-top: 7px;
+    }
+</style>
+
+<style>
+    .card-custom {
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .card-header-custom {
+        background: linear-gradient(135deg, #007bff, #0056d2);
+        color: white;
+        border-radius: 12px 12px 0 0;
+        font-size: 1.15rem;
+        padding: 14px 20px;
+        font-weight: 600;
+    }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    .btn-save {
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .khung
+    {
+        width: 50%;
+    }
+    @@media (max-width: 768px) {
+        .card-custom {
+            margin-bottom: 25px;
+        }
+        .khung {
+            width: 100%;
+        }
+    }
+</style>
+
+
+<div class="container py-4">
+
+    <h2 style="text-align: center;" class="text-primary fw-bold mb-3">Cập nhật Tài khoản Người dùng</h2>
+    <p style="text-align: center;" class="text-muted mb-4">Vui lòng kiểm tra và chỉnh sửa thông tin của người dùng bên dưới.</p>
+
+    @using (Html.BeginForm("SuaNguoiDung_Action", "Manager", FormMethod.Post, new { @class = "row g-4" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.MaND)
+
+        <div class="khung" style="margin: auto">
+            <div class="card card-custom">
+                <div class="card-header-custom"><i class="fas fa-user me-2"></i>Thông tin Cá nhân</div>
+
+                <div class="card-body">
+
+                    @*<div class="mb-3">
+                        @Html.LabelFor(m => m.MaND, new { @class = "form-label" })
+                        <input class="form-control" value="@Model.MaND" disabled />
+                    </div>*@
+
+                    <div class="mb-3">
+                        <p><strong>Họ và tên</strong></p>
+                        @Html.EditorFor(m => m.HoTen, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    <div class="mb-3">
+                        <p><strong>Giới tính</strong></p>
+                        <div class="col-md-9 pt-2">
+                            <label class="me-3">
+                                @Html.RadioButtonFor(model => model.GioiTinh, "Nam")
+                                Nam
+                            </label>
+                            <label>
+                                @Html.RadioButtonFor(model => model.GioiTinh, "Nữ")
+                                Nữ
+                            </label>
+                            @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <p><strong>Ngày sinh</strong></p>
+                        <input type="date" name="NgaySinh" class="form-control"
+                               value="@Model.NgaySinh.ToString("yyyy-MM-dd")" />
+                    </div>
+
+                    <div class="mb-3">
+                        <p><strong>Số điện thoại</strong></p>
+                        @Html.EditorFor(m => m.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    <div class="mb-3">
+                        <p><strong>Email</strong></p>
+                        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    <div class="mb-3">
+                        <p><strong>Địa chỉ</strong></p>
+                        @Html.EditorFor(m => m.TinhTP, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="mb-3">
+                        <p><strong>Quyền truy cập</strong></p>
+                        @Html.DropDownListFor(
+                            m => m.QuyenTruyCap,
+                            new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Khách hàng", Value = "Khách hàng" },
+                                new SelectListItem { Text = "Nhân viên", Value = "Nhân viên" },
+                                new SelectListItem { Text = "Quản lý", Value = "Quản lý" }
+                            },
+                            new { @class = "form-control" }
+                        )
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-4">
+                        Lưu Thay Đổi
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+        
+       
+    }
+
+    <div class="mt-4">
+        @Html.ActionLink("Quay lại Danh sách", "Taikhoan", "Manager", null, new { @class = "btn btn-outline-secondary" })
+    </div>
+
+</div>

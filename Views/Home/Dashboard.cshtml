@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Vinfast.Models.ThongTinSanPhamCoAnh>
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+    <link href="~/Content/CSS/Dashboard_Style.css" rel="stylesheet" />
+}
+
+
+<div class="">
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/Content/Images/test/banner-vf-9-1697019282.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Content/Images/test/panel4.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Content/Images/test/vinfast-vf3-17.jpg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+<h2 class="mb-4 mt-5" style="text-align: center;"><strong>Danh sách sản phẩm nổi bật</strong></h2>
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <h1 style="text-align: center; margin-top: 10%;" id="@item.TenSP" >----- @item.TenSP -----</h1>
+        <hr />
+        <div class="row">
+            <div class="col-lg-6 col-md-12 p-3">
+                <img src="@Url.Content("~/Content/Images/"+ item.DSAnh[0].Duongdan)" class="card-img-top" style="height:100%; object-fit:cover;" />
+            </div>
+            <div class="col-lg-6 col-md-12 d-flex flex-column justify-content-center p-3">
+                <div class="mb-4 px-3">
+                    <img src="~/Content/Images/test/logo-1.png" style="width: 20%;" />
+                    <h1 class="card-title mt-3" style=" font-family: 'Poppins', sans-serif;">@item.TenSP</h1>
+
+                    <p class="card-text">
+                        <h4>Giá:    <strong>@item.Gia.ToString("N0") VNĐ</strong> </h4>
+                        <h4>Màu: @item.MauSac </h4 >
+                        <h4>Số chỗ: @item.SoChoNgoi </h4 >
+
+                    </p>
+                </div>
+
+                <a href="@Url.Action("LayChiTietSP_Action", "SanPham", new { masp = item.MaSP })" class="btn btn-dark w-100 mt-4 p-2" style="border-radius: 20px;">Xem chi tiết</a>
+            </div>
+            <div class="col-lg-7 col-md-12  d-flex flex-column justify-content-center p-3">
+                <h5 class="card-title">Mô tả ngoại thất</h5>
+
+                <p class="card-text">
+                    @item.NgoaiThat<br />
+
+                </p>
+
+            </div>
+
+            <div class="col-lg-4 col-md-12 p-3 ">
+                <img src="@Url.Content("~/Content/Images/"+ item.DSAnh[1].Duongdan)" class="card-img-top" style="height:100%; object-fit:cover;" />
+            </div>
+
+
+            <div class="col-lg-6 col-md-12 p-3">
+                <img src="@Url.Content("~/Content/Images/"+ item.DSAnh[3].Duongdan)" class="card-img-top" style="height:100%; object-fit:cover;" />
+            </div>
+            <div class="col-lg-6 col-md-12 d-flex flex-column justify-content-center p-3">
+                <h5 class="card-title">Mô tả nội thất</h5>
+
+                <p class="card-text">
+                    @item.NoiThat
+                </p>
+            </div>
+
+        </div>
+
+    }
+</div>
+

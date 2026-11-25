@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Vinfast.Models.HoaDon>
+
+@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <h2 class="text-center mb-4">Thống kê hóa đơn hôm nay</h2>
+
+    <div class="card shadow-sm mb-4 p-3">
+        <canvas id="doanhThuChart" style="max-height:400px;"></canvas>
+    </div>
+
+    <div class="row text-center g-3">
+        <div class="col-md-6">
+            <div class="card shadow-sm p-3">
+                <h5 class="fw-bold">Tổng doanh thu hôm nay</h5>
+                <p class="fs-4 fw-bold text-primary">@ViewBag.TongDoanhThuHomNay.ToString("#,### ₫")</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm p-3">
+                <h5 class="fw-bold">Số hóa đơn hôm nay</h5>
+                <p class="fs-4 fw-bold text-success">@ViewBag.SoHoaDonHomNay</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('doanhThuChart').getContext('2d');
+        const labels = @Html.Raw(Json.Encode(ViewBag.ChartLabels));
+        const values = @Html.Raw(Json.Encode(ViewBag.ChartValues));
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Doanh thu theo giờ (₫)',
+                    data: values,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 2,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Biểu đồ doanh thu trong ngày',
+                        font: { size: 18, weight: '500' }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y.toLocaleString("vi-VN") + " ₫";
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString("vi-VN") + " ₫";
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+}

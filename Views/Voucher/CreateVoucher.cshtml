@@ -1,0 +1,93 @@
+﻿@model Vinfast.Models.Voucher
+
+@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .card-header {
+        background: #0d6efd;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    label {
+        font-weight: 600;
+    }
+</style>
+
+<div class="container mt-4">
+
+    <div class="card shadow-lg">
+
+        <div class="card-header">
+            <i class="bi bi-ticket-perforated"></i> Tạo Voucher Mới
+        </div>
+
+        <div class="card-body">
+
+            @using (Html.BeginForm("CreateVoucher_Action", "Voucher", FormMethod.Post, new { @class = "row g-3" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="col-md-6">
+                    @*@Html.LabelFor(m => m.MaVoucher)*@
+                    <label>Mã voucher</label>
+                    @Html.TextBoxFor(m => m.MaVoucher, new { @class = "form-control", placeholder = "Nhập mã voucher..." })
+                    @Html.ValidationMessageFor(m => m.MaVoucher, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6">
+                    @*@Html.LabelFor(m => m.GiamGia)*@
+                    <label>Phần trăm giảm</label>
+                    @Html.TextBoxFor(m => m.GiamGia, new { @class = "form-control", type = "number", min = "1", max = "100", placeholder = "VD: 10 = 10%" })
+                    @Html.ValidationMessageFor(m => m.GiamGia, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-12">
+                    @*@Html.LabelFor(m => m.GhiChu)*@
+                    <label>Ghi chú</label>
+                    @Html.TextAreaFor(m => m.GhiChu, new { @class = "form-control", rows = 3, placeholder = "Nhập mô tả hoặc ghi chú..." })
+                    @Html.ValidationMessageFor(m => m.GhiChu, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6">
+                    @*@Html.LabelFor(m => m.NgayTao)*@
+                    <label>Ngày khởi tạo</label>
+                    @Html.TextBoxFor(m => m.NgayTao, new { @class = "form-control", type = "datetime-local" })
+                    @Html.ValidationMessageFor(m => m.NgayTao, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6">
+                    @*@Html.LabelFor(m => m.NgayHetHan)*@
+                    <label>Ngày kết thúc</label>
+                    @Html.TextBoxFor(m => m.NgayHetHan, new { @class = "form-control", type = "datetime-local" })
+                    @Html.ValidationMessageFor(m => m.NgayHetHan, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6">
+                    @*@Html.LabelFor(m => m.SoLuong)*@
+                    <label>Số lượng voucher</label>
+                    @Html.TextBoxFor(m => m.SoLuong, new { @class = "form-control", type = "number", min = "1" })
+                    @Html.ValidationMessageFor(m => m.SoLuong, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-12 d-flex justify-content-between mt-4">
+                    <a href="@Url.Action("DSVoucher","Voucher")" class="btn btn-secondary px-4">
+                        Quay lại danh sách
+                    </a>
+
+                    <button type="submit" class="btn btn-primary px-4">
+                        Tạo Voucher
+                    </button>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,161 @@
+﻿@model IEnumerable<Vinfast.Models.PhieuLaiThu_View>
+
+@{
+    ViewBag.Title = "Đăng ký lái thử";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@if (Session["user"] == null)
+    {
+        <div class="position-absolute h-100 w-100  d-flex justify-content-center align-items-start" style=" background-color: rgb(20, 19, 19, 0); z-index: 100;">
+            <div class="card shadow p-5 d-flex justify-content-center align-items-center" style=" background-color: rgb(0, 0, 0, 0.75); width: fit-content;">
+                <img src="~/Content/Images/warning_6897039.png " style="height: 50px; width: 50px" />
+                <p class="text-light"><strong>Vui lòng đăng nhập tài khoản để đăng ký</strong></p>
+                <a href="/Account/DangNhap">Chuyến đến đăng nhập</a>
+            </div>
+        </div>
+    }*@
+
+<style>
+    .card:hover {
+        transform: translateY(-5px);
+        transition: all 0.3s ease-in-out;
+    }
+
+    body {
+        background-image: url('/Content/Images/test/xehay-vingroup-070924-1.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        color: #fff;
+    }
+
+    .form-control::placeholder {
+        color: white;
+        opacity: 1;
+    }
+
+    .doimau:focus {
+        background-color: transparent;
+        color: white;
+    }
+    .doimau {
+        background-color: transparent;
+        color: white;
+        border: none;
+        border-bottom: 2px solid white;
+        border-radius: 0;
+        padding: 4px 0;
+    }
+
+    /*.doimau {
+        background-color: #111 !important;*/ /* Đặt nền màu đen đậm */
+        /*color: white !important;*/ /* Đảm bảo chữ trắng */
+        /* Cần thiết lập lại style cho các tùy chọn (options) */
+    /*}*/
+
+        /* Đảm bảo các options bên trong DropDownList cũng có nền tối và chữ sáng */
+        .doimau option {
+            background: #333;
+            color: white;
+        }
+</style>
+
+<div class="container ">
+    <div class="card shadow w-75 p-4 my-4 m-auto " style="background-color: rgb(0, 0, 0, 0.7)">
+        <div class="form-section">
+            <h2 class="text-center text-primary">Đăng ký lái thử</h2>
+            @using (Html.BeginForm("DangKyLaiThuAction", "Home", FormMethod.Post))
+            {
+                <div class="d-flex">
+                    <div class="mb-3 w-50 px-1">
+                        <label for="hoTen" class="form-label text-light">Họ và tên</label>
+                        <input type="text" class="form-control" placeholder="@(((Vinfast.Models.NguoiDung)Session["user"]).HoTen)" required readonly style="background-color: transparent;color: white;border: none;border-bottom: 2px solid white;border-radius: 0;padding: 4px 0;">
+                    </div>
+
+                    <div class="mb-3 w-50 px-1">
+                        <label for="soDienThoai" class="form-label text-light">Số điện thoại</label>
+                        <input type="tel" class="form-control" id="soDienThoai" placeholder="@(((Vinfast.Models.NguoiDung)Session["user"]).SoDienThoai)" required readonly style="background-color: transparent;color: white;border: none;border-bottom: 2px solid white;border-radius: 0;padding: 4px 0;">
+                    </div>
+                </div>
+                
+
+
+
+                <div class="mb-3">
+                    <label for="MaSP" class="form-label text-light">Chọn xe muốn lái thử</label>
+                    @Html.DropDownList("MaSP", (List<SelectListItem>)ViewBag.DanhSachSP, "-- Chọn xe ---", new { @class = "form-select doimau background-dark", required = "required" })
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="ngayBatDau" class="form-label text-light">Ngày bắt đầu</label>
+                        <input type="datetime-local" name="ngayBD" class="form-control doimau" id="ngayBatDau" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="ngayKetThuc" class="form-label text-light">Ngày kết thúc</label>
+                        <input type="datetime-local" name="ngayKT" class="form-control doimau" id="ngayKetThuc">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="diaDiem" class="form-label text-light">Địa điểm lái thử</label>
+                    <input type="text" class="form-control doimau" id="diaDiem" name="diadiem" placeholder="VD: Showroom VinFast Quận 1" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ghiChu" class="form-label text-light">Ghi chú (nếu có)</label>
+                    <textarea id="ghiChu" name="ghichu" class="form-control doimau" rows="4" placeholder="Nhập thêm yêu cầu đặc biệt..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Gửi đăng ký</button>
+            }
+
+        </div>
+
+    </div>
+
+
+
+
+</div>
+<h4 style="text-align: center"> Phiếu đã đăng ký</h4>
+
+<div class="container my-4">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card text-white h-100 shadow-lg border-0 rounded-3" style="background-color: rgb(0, 0, 0, 0.7)">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: center;">@item.TenSP</h5>
+                        <h6 class="card-subtitle mb-2 text-light">Người dùng: @item.TenNguoiDung</h6>
+                        <p class="card-text">
+                            <strong>Màu sắc:</strong> @item.MauSac <br />
+                            <strong>Ngày bắt đầu:</strong> @item.NgayBatDau.ToString("dd/MM/yyyy") <br />
+                            <strong>Ngày kết thúc:</strong> @item.NgayKetThuc.ToString("dd/MM/yyyy") <br />
+                            <strong>Địa điểm:</strong> @item.DiaDiem <br />
+                            <strong>Ghi chú:</strong> @item.GhiChu <br />
+                            <strong>Trạng thái:</strong>
+                            @if (item.TrangThai == "Hoàn thành")
+                            {
+                                <span class="badge bg-warning">@item.TrangThai</span>
+                            }
+                            else
+                            {
+                                <span class="text-success">@item.TrangThai</span>
+                            }
+                        </p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-dark border-0">
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.MaLT }, new { @class = "btn btn-sm btn-outline-light" })*@
+                        <a href="@Url.Action("XoaLaiThu", "Home", new {malt = item.MaLT})" class="btn btn-outline-danger" style="width: 45%">Hủy phiếu</a>
+                        <a href="@Url.Action("HoanThanhLaiThu_User", "Home", new {malt = item.MaLT})" class="btn btn-success" style="width: 45%">Hoàn thành</a>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

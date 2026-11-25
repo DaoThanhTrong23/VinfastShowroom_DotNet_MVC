@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Vinfast.Models.LaiThu_View>
+
+@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    @@media (max-width: 768px) {
+        .card-body p {
+            font-size: 0.9rem;
+        }
+    }
+</style>
+
+<div class="container">
+    <h2 class="text-center mb-4 mt-5">Danh sách lái thử</h2>
+    @using (Html.BeginForm("LoclaiThu", "Manager", FormMethod.Post))
+    {
+        <div class="col-lg-4 d-flex justify-content-between py-4">
+            @*<input class="w-50 form-control" type="date" name="ngaylaithu" value="@DateTime.Now.ToString("yyyy-MM-dd")" />*@
+            <input class="w-50 form-control" type="date" name="ngaylaithu" value="@ViewBag.NgayLaiThu" />
+            <button style="width: 45%" type="submit" class="btn btn-success">Tìm kiếm</button>
+        </div>
+    }
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-primary text-white fw-bold">
+                        Lái thử: @item.TenSP
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Mã Lái Thử:</strong> @item.MaLT</p>
+                        <p><strong>Người dùng:</strong> @item.HoTen (ID: @item.MaND)</p>
+                        <p><strong>Màu sắc / Giá:</strong> @item.MauSac / @String.Format("{0:N0}₫", item.Gia)</p>
+                        <p><strong>Thời gian:</strong> @item.NgayBatDau.ToString("dd/MM/yyyy HH:mm") - @item.NgayKetThuc.ToString("dd/MM/yyyy HH:mm")</p>
+                        <p><strong>Địa điểm:</strong> @item.DiaDiem</p>
+                        <p><strong>Ghi chú:</strong> @item.GhiChu</p>
+                        <p><strong>Trạng thái:</strong> @item.TrangThai</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <a href="@Url.Action("HoanThanhLaiThu", "Manager", new {malt = item.MaLT})" class="btn btn-success w-100">Hoàn thành</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+</div>

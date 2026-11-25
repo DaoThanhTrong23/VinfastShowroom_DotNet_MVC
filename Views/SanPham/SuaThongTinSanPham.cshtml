@@ -1,0 +1,291 @@
+﻿@model Vinfast.Models.ThongTinAll_SanPham
+
+@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        margin-bottom: 25px;
+    }
+
+    .card-header {
+        background: #0056d2;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    label {
+        font-weight: 600;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        height: 40px;
+    }
+
+    textarea.form-control {
+        height: 80px !important;
+    }
+
+    .btn-save {
+        background: #0056d2;
+        color: white;
+        padding: 10px 28px;
+        font-size: 16px;
+        border-radius: 8px;
+        transition: 0.2s;
+    }
+
+        .btn-save:hover {
+            background: #003c99;
+            color: #fff;
+        }
+</style>
+
+
+<div class="container">
+    <h2 class="mt-5" style="text-align: center;">Sửa thông tin sản phẩm</h2>
+
+    @using (Html.BeginForm("SuaThongTinSanPham_Action", "SanPham", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+<div class="container-fluid">
+
+    <div class="card">
+        <div class="card-header">Thông Tin Sản Phẩm</div>
+        <div class="card-body">
+
+            <div class="row">
+
+
+                @Html.HiddenFor(m => m.MaSP, new { @class = "form-control", @readonly = "readonly" })
+
+                <div class="col-md-6 mb-3">
+                    <label>Tên sản phẩm</label>
+                    @Html.TextBoxFor(m => m.TenSP, new { @class = "form-control" })
+                </div>
+
+
+                <div class="col-md-6 mb-3">
+                    <label>Loại sản phẩm</label>
+                    @Html.DropDownList("MaLoai", (IEnumerable<SelectListItem>)ViewBag.DSLoaiSP, "--- Chọn Loại SP ---", new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Giá sản phẩm</label>
+                    @Html.TextBoxFor(m => m.Gia, new { @type = "number", @class = "form-control" })
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Màu sắc</label>
+                    @Html.TextBoxFor(m => m.MauSac, new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Năm sản xuất</label>
+                    <input type="date" name="NamSX" class="form-control" value="@Model.NamSX.ToString("yyyy-MM-dd")" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Phiên bản</label>
+                    @Html.TextBoxFor(m => m.Phienban, new { @type = "number", @class = "form-control" })
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Tồn kho</label>
+                    @Html.TextBoxFor(m => m.Tonkho, new { @type = "number", @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Mô Tả Sản Phẩm</div>
+        <div class="card-body">
+            <div class="row">
+
+
+                @Html.HiddenFor(m => m.MaMoTa, new { @class = "form-control" })
+
+                <div class="col-md-12 mb-3">
+                    <label>Ngoại thất</label>
+                    @Html.TextAreaFor(m => m.NgoaiThat, new { @class = "form-control w-100" })
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    @*@Html.LabelFor(m => m.NoiThat)*@
+                    <label>Nội thất</label>
+                    @Html.TextAreaFor(m => m.NoiThat, new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    @*@Html.LabelFor(m => m.AnToan)*@
+                    <label>An toàn</label>
+                    @Html.TextAreaFor(m => m.AnToan, new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    @*@Html.LabelFor(m => m.CongNghe)*@
+                    <label>Công nghệ</label>
+                    @Html.TextAreaFor(m => m.CongNghe, new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    @*@Html.LabelFor(m => m.TienNghi)*@
+                    <label>Tiện nghi</label>
+                    @Html.TextAreaFor(m => m.TienNghi, new { @class = "form-control" })
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Thông Số Kỹ Thuật</div>
+        <div class="card-body">
+            <div class="row">
+
+                @*<div class="col-md-6 mb-3">
+                        @Html.LabelFor(m => m.MaTS)
+                    </div>*@
+                @Html.HiddenFor(m => m.MaTS, new { @class = "form-control" })
+
+
+                <div class="col-md-6 mb-3">
+                    @*@Html.LabelFor(m => m.DongCo)*@
+                    <label>Động cơ</label>
+                    @Html.TextBoxFor(m => m.DongCo, new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.CongSuat)*@
+                    <label>Công xuất</label>
+                    @Html.TextBoxFor(m => m.CongSuat, new { @type = "number", @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.MoMenXoan)*@
+                    <label>Mô men xoắn</label>
+                    @Html.TextBoxFor(m => m.MoMenXoan, new { @type = "number", @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.QuangDuongToiDa)*@
+                    <label>Quảng đường tối đa</label>
+                    @Html.TextBoxFor(m => m.QuangDuongToiDa, new { @type = "number", @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.ThoiGianSac)*@
+                    <label>Thời gian sạc</label>
+                    @Html.TextBoxFor(m => m.ThoiGianSac, new { @type = "number", @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.SoChoNgoi)*@
+                    <label>Số chổ ngồi</label>
+                    @Html.TextBoxFor(m => m.SoChoNgoi, new { @type = "number", @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.TrongLuong)*@
+                    <label>Trọng lượng</label>
+                    @Html.TextBoxFor(m => m.TrongLuong, new { @type = "number", @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.TaiTrongToiDa)*@
+                    <label>Tải trọng tối đa</label>
+                    @Html.TextBoxFor(m => m.TaiTrongToiDa, new { @type = "number", @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.ChieuDai)*@
+                    <label>Chiều dài</label>
+                    @Html.TextBoxFor(m => m.ChieuDai, new { @type = "number", @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.ChieuRong)*@
+                    <label>Chiều rộng</label>
+                    @Html.TextBoxFor(m => m.ChieuRong, new { @type = "number", @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.ChieuCao)*@
+                    <label>Chiều cao</label>
+                    @Html.TextBoxFor(m => m.ChieuCao, new { @type = "number", @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.TocDoToiDa)*@
+                    <label>Tôc độ tối đa</label>
+                    @Html.TextBoxFor(m => m.TocDoToiDa, new { @type = "number", @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.CheDoChay)*@
+                    <label>Chế độ chạy</label>
+                    @Html.TextBoxFor(m => m.CheDoChay, new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label>Phanh tái sinh</label>
+
+                    <div class="pt-2">
+                        <label class="me-3">
+                            @Html.RadioButtonFor(model => model.PhanhTaiSinh, "Yes", Model.PhanhTaiSinh == "Yes" ? new { @checked = "checked" } : null)
+                            Có
+                        </label>
+                        <label>
+                            @Html.RadioButtonFor(model => model.PhanhTaiSinh, "No", Model.PhanhTaiSinh == "No" ? new { @checked = "checked" } : null)
+                            Không
+                        </label>
+                        @Html.ValidationMessageFor(model => model.PhanhTaiSinh, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.KhoangSangGam)*@
+                    <label>Khoảng sáng gầm</label>
+                    @Html.TextBoxFor(m => m.KhoangSangGam, new { @type = "number", @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.HopSo)*@
+                    <label>Hộ số</label>
+                    @Html.TextBoxFor(m => m.HopSo, new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @*@Html.LabelFor(m => m.DungLuongPin)*@
+                    <label>Dung lượng pin</label>
+                    @Html.TextBoxFor(m => m.DungLuongPin, new { @type = "number", @class = "form-control" })
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="text-center my-4 mx-3">
+        <button type="submit" class="btn btn-primary w-100 p-2" >Lưu Thay Đổi</button>
+    </div>
+
+
+</div>
+    }
+
+<div class="my-3 p-3">
+    <a href="@Url.Action("DSSanPham", "SanPham")" class="btn btn-warning">Quay lại danh sách</a>
+    <a href="@Url.Action("SuaAnhSP", "SanPham", new {masp = Model.MaSP})" class="btn btn-light">Sửa ảnh sản phẩm</a>
+
+</div>
+</div>

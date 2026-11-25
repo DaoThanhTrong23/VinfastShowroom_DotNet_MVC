@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Vinfast.Models.HoaDon>
+
+@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .card-body p {
+        margin-bottom: 0.5rem;
+    }
+</style>
+
+<div class="container">
+    <h2 class="text-center mb-4 mt-5">Danh sách hóa đơn</h2>
+    @using (Html.BeginForm("LocHDTheoNgay", "Manager", FormMethod.Post))
+    {
+        <div class="col-lg-6 d-flex justify-content-between py-3">
+            <input class="w-50 form-control" type="date" name="ngay" value="@ViewBag.NgayHoaDon" />
+            <button type="submit" class="w-25 btn btn-success">Tìm kiếm</button>
+        </div>
+    }
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-primary text-white">
+                        <strong>Hóa đơn #@item.MaHD</strong>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Khách hàng (MaND):</strong> @item.MaND</p>
+                        <p><strong>Ngày bán:</strong> @item.NgayBan.ToString("dd/MM/yyyy HH:mm")</p>
+                        <p><strong>Tổng tiền:</strong> @String.Format("{0:N0}₫", item.TongTien)</p>
+                        <p><strong>Giảm giá:</strong> @item.GiamGia %</p>
+                        <p><strong>Thanh toán:</strong> @String.Format("{0:N0}₫", item.ThanhToan)</p>
+                        <p><strong>Voucher:</strong> @(!string.IsNullOrEmpty(item.MaVoucher) ? item.MaVoucher : "-")</p>
+                        <p><strong>Trạng thái:</strong> @item.TrangThai</p>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+
+
+</div>

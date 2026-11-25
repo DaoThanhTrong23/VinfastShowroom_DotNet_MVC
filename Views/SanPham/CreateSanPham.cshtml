@@ -1,0 +1,163 @@
+﻿
+@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .card-title {
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+</style>
+
+@using (Html.BeginForm("ThemSanPhamHoanChinh", "SanPham", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container mt-4">
+        <h2 class="text-center text-primary mb-4">NHẬP THÔNG TIN SẢN PHẨM HOÀN CHỈNH</h2>
+
+        <div class="card shadow p-4 mb-4">
+            <h4 class="card-title text-center text-secondary">1. Chi tiết sản phẩm cơ bản <i class="fas fa-car"></i></h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Tên sản phẩm</label>
+                        <input type="text" name="TenSP" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Loại sản phẩm</label>
+
+                        @Html.DropDownList("MaLoai", (IEnumerable<SelectListItem>)ViewBag.DSLoaiSP, "--- Chọn Loại SP ---", new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Giá bán (VND)</label>
+                        <input type="number" name="Gia" class="form-control" min="0" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Màu sắc</label>
+                        <input type="text" name="MauSac" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Năm sản xuất</label>
+                        <input type="number" name="NamSX" class="form-control" placeholder="YYYY" min="2000" max="@DateTime.Now.Year" />
+                    </div>
+                    <div class="form-group">
+                        <label>Phiên bản</label>
+                        <input type="number" name="PhienBan" class="form-control" value="1" min="1" />
+                    </div>
+                    <div class="form-group">
+                        <label>Số lượng tồn kho</label>
+                        <input type="number" name="TonKho" class="form-control" value="0" min="0" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow p-4 mb-4">
+            <h4 class="card-title text-center text-secondary">2. Thông số kỹ thuật <i class="fas fa-cogs"></i></h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group"><label>Động cơ</label><input type="text" name="DongCo" class="form-control" /></div>
+                    <div class="form-group"><label>Công suất</label><input type="number" name="CongSuat" class="form-control" /></div>
+                    <div class="form-group"><label>Mô men xoắn</label><input type="number" name="MoMenXoan" class="form-control" /></div>
+                    <div class="form-group"><label>Quãng đường tối đa</label><input type="number" name="QuangDuongToiDa" class="form-control" /></div>
+                    <div class="form-group"><label>Thời gian sạc</label><input type="number" name="ThoiGianSac" class="form-control" /></div>
+                    <div class="form-group"><label>Số chỗ ngồi</label><input type="number" name="SoChoNgoi" class="form-control" /></div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group"><label>Trọng lượng</label><input type="number" name="TrongLuong" class="form-control" /></div>
+                    <div class="form-group"><label>Tải trọng tối đa</label><input type="number" name="TaiTrongToiDa" class="form-control" /></div>
+                    <div class="form-group"><label>Chiều dài</label><input type="number" name="ChieuDai" class="form-control" /></div>
+                    <div class="form-group"><label>Chiều rộng</label><input type="number" name="ChieuRong" class="form-control" /></div>
+                    <div class="form-group"><label>Chiều cao</label><input type="number" name="ChieuCao" class="form-control" /></div>
+                    <div class="form-group"><label>Tốc độ tối đa</label><input type="number" name="TocDoToiDa" class="form-control" /></div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group"><label>Chế độ chạy</label><input type="text" name="CheDoChay" class="form-control" /></div>
+                    <div class="form-group">
+                        <label>Phanh tái sinh</label>
+                        <div class="w-100">
+                            <label class="mx-3">
+                                <input type="radio" name="PhanhTaiSinh" value="Yes" />
+                                Có
+                            </label>
+                            <label class="mx-3">
+                                <input type="radio" name="PhanhTaiSinh" value="No" />
+                                Không
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group"><label>Khoảng sáng gầm</label><input type="number" name="KhoangSangGam" class="form-control" /></div>
+                    <div class="form-group"><label>Hộp số</label><input type="text" name="HopSo" class="form-control" /></div>
+                    <div class="form-group"><label>Dung lượng pin</label><input type="number" name="DungLuongPin" class="form-control" /></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow p-4 mb-4">
+            <h4 class="card-title text-center text-secondary">3. Mô tả chi tiết & An toàn <i class="fas fa-shield-alt"></i></h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group"><label>Ngoại thất</label><textarea name="NgoaiThat" class="form-control" rows="3"></textarea></div>
+                    <div class="form-group"><label>Nội thất</label><textarea name="NoiThat" class="form-control" rows="3"></textarea></div>
+                    <div class="form-group"><label>An toàn</label><textarea name="AnToan" class="form-control" rows="3"></textarea></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group"><label>Công nghệ</label><textarea name="CongNghe" class="form-control" rows="3"></textarea></div>
+                    <div class="form-group"><label>Tiện nghi</label><textarea name="TienNghi" class="form-control" rows="3"></textarea></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow p-4 mb-4">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <p><strong>Ảnh Avata</strong></p>
+                    <input type="file" name="file_avata" class="form-control" />
+                    <label class="mt-2">Mô tả ảnh </label>
+
+                    <input type="text" name="mota_avata" class="form-control" />
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <p><strong>Ảnh ngoại thất</strong></p>
+                    <input type="file" name="file_ngoaithat" class="form-control" />
+                    <label class="mt-2">Mô tả ảnh </label>
+
+                    <input type="text" name="mota_ngoaithat" class="form-control" />
+
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <p><strong>Ảnh nội thất</strong></p>
+                    <input type="file" name="file_noithat" class="form-control" />
+                    <label class="mt-2">Mô tả ảnh </label>
+
+                    <input type="text" name="mota_noithat" class="form-control" />
+
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <p><strong>Ảnh công nghệ trang bi</strong></p>
+                    <input type="file" name="file_congnghe" class="form-control"/>
+                    <label class="mt-2">Mô tả ảnh </label>
+                    <input type="text" name="mota_congnghe" class="form-control" />
+
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-5">
+            <button type="submit" class="btn btn-primary btn-lg w-50">LƯU SẢN PHẨM HOÀN CHỈNH</button>
+        </div>
+    </div>
+}
+

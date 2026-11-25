@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Vinfast.Models.LoaiSanPham>
+
+@{
+    Layout = null;
+}
+
+<ul style="list-style-type: none;">
+    @foreach (var item in Model)
+    {
+        <li class="p-2">
+            <a class="text-light" href="@Url.Action("LocTheoLoai_Action","Home", new {maloai = item.MaLoaiSP})">@item.TenLoai</a>
+        </li>
+    }
+</ul>

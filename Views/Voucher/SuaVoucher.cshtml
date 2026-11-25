@@ -1,0 +1,77 @@
+﻿@model Vinfast.Models.Voucher
+
+@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9 col-12">
+
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h3 class="mb-0">Sửa Thông Tin Voucher</h3>
+                </div>
+
+                <div class="card-body p-4">
+
+                    @using (Html.BeginForm("SuaVoucher_Action", "Voucher", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(m => m.MaVoucher, new { @class = "fw-bold" })
+                            @Html.TextBoxFor(m => m.MaVoucher, new { @class = "form-control rounded-3", @readonly = "readonly" })
+                            <small class="text-muted">* Không thể sửa mã voucher</small>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(m => m.GhiChu, new { @class = "fw-bold" })
+                            @Html.TextAreaFor(m => m.GhiChu, new { @class = "form-control rounded-3", rows = 3 })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(m => m.GiamGia, new { @class = "fw-bold" })
+                            @Html.TextBoxFor(m => m.GiamGia, new { @class = "form-control rounded-3", type = "number", min = 1, max = 100 })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>Ngày tạo</label>
+                          
+                            <input type="date" name="NgayTao" class="form-control"value="@Model.NgayTao.ToString("yyyy-MM-dd")" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>Ngày hết hạn</label>
+
+                            <input type="date" name="NgayHetHan" class="form-control"value="@Model.NgayHetHan.ToString("yyyy-MM-dd")" />
+
+                        </div>
+
+                        <div class="form-group mb-4">
+                            @Html.LabelFor(m => m.SoLuong, new { @class = "fw-bold" })
+                            @Html.TextBoxFor(m => m.SoLuong, new { @class = "form-control rounded-3", type = "number", min = 1 })
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success px-4 py-2 rounded-3">
+                                <i class="fa fa-save"></i> Lưu Thay Đổi
+                            </button>
+
+                            <a href="@Url.Action("DSVoucher","Voucher")" class="btn btn-secondary px-4 py-2 rounded-3 ms-2">
+                                Quay lại
+                            </a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

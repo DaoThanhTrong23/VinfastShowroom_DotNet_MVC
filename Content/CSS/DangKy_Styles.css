@@ -1,0 +1,15 @@
+﻿body {
+}
+.card
+{
+    width: 50%;
+}
+
+
+@media (max-width: 576px) {
+    .card {
+        width: 90% !important;
+    }
+
+   
+}

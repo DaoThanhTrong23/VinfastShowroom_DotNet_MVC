@@ -1,0 +1,143 @@
+﻿@model Vinfast.Models.ThongTinSanPhamCoAnh
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+
+    table th {
+        background: #f8f9fa;
+        font-weight: 600;
+    }
+
+    table td, table th {
+        padding: 14px 18px !important;
+    }
+
+    table tr:hover {
+        background: #f1f1f1;
+    }
+
+</style>
+
+<div class="container">
+    <h2 style="text-align: center;" class="mt-5"><strong>Thông tin sản phẩm @Model.TenSP</strong></h2>
+    <div class="row mt-5">
+        <div class="col-lg-7 d-flex flex-column justify-content-center">
+            <img src="@Url.Content("~/Content/Images/" + Model.DSAnh[0].Duongdan)" class="w-100" />
+        </div>
+        <div class="col-lg-5 d-flex flex-column justify-content-center py-3">
+            <div>
+                <h4><strong>@Model.TenSP</strong></h4>
+                <p>
+                    <strong>Giá: </strong>@Model.Gia.ToString("N0")
+                    <br />
+                    <strong>Màu sắc: </strong>@Model.MauSac
+                    <br />
+
+                    <strong>năm sản xuất: </strong>@Model.NamSX.ToString("dd/MM/yyyy")
+                    <br />
+                    <strong>Phiên bản: </strong>@Model.Phienban .0v
+                </p>
+
+            </div>
+            <div>
+                <a href="@Url.Action("ThemVaoChiTietGioHang", "Cart", new {masp = Model.MaSP})" class="btn btn-outline-dark w-100" style="border-radius: 20px;">Thêm vào giỏ hàng</a>
+            </div>
+        </div>
+        <div class="col-12 px-5 mt-5">
+            <p>
+                <strong>Mô tả ngoại thất:</strong>@Model.NgoaiThat
+            </p>
+        </div>
+        <div class="col-12" style="text-align: center;">
+            <img src="@Url.Content("~/Content/Images/" + Model.DSAnh[1].Duongdan)" class="w-100" />
+
+        </div>
+
+        <div class="col-lg-5 mt-5 d-flex flex-column justify-content-center">
+            <p>
+                <strong>Mô tả nội thất:</strong>@Model.NoiThat
+            </p>
+        </div>
+
+        <div class="col-lg-7 py-4">
+            <img src="@Url.Content("~/Content/Images/" + Model.DSAnh[2].Duongdan)" class="w-100" />
+
+        </div>
+        <div class="col-lg-7 mt-5">
+            <img src="@Url.Content("~/Content/Images/" + Model.DSAnh[3].Duongdan)" class="w-100" />
+
+        </div>
+        <div class="col-lg-5 mt-5 d-flex flex-column justify-content-center">
+            <p>
+                <strong>Công nghệ: </strong>@Model.CongNghe
+            </p>
+            <p>
+                <strong>Tiện nghi: </strong>@Model.TienNghi
+            </p>
+        </div>
+
+        <div class="col-12">
+            <div class="container my-4">
+                <table class="table table-bordered table-striped table-hover align-middle shadow-sm">
+                    <tbody>
+                        <tr>
+                            <th class="w-50">Động cơ</th>
+                            <td>@Model.DongCo</td>
+                        </tr>
+                        <tr>
+                            <th>Công suất</th>
+                            <td>@Model.CongSuat mã lực</td>
+                        </tr>
+                        <tr>
+                            <th>Mô men xoắn</th>
+                            <td>@Model.MoMenXoan Nm</td>
+                        </tr>
+                        <tr>
+                            <th>Quãng đường tối đa / 1 lần sạc</th>
+                            <td>@Model.QuangDuongToiDa km</td>
+                        </tr>
+                        <tr>
+                            <th>Số chỗ ngồi</th>
+                            <td>@Model.SoChoNgoi chỗ</td>
+                        </tr>
+                        <tr>
+                            <th>Trọng lượng không tải</th>
+                            <td>@Model.TrongLuong kg</td>
+                        </tr>
+                        <tr>
+                            <th>Kích thước (D x R x C)</th>
+                            <td>@Model.ChieuDai x @Model.ChieuRong x @Model.ChieuCao</td>
+                        </tr>
+                        <tr>
+                            <th>Tốc độ tối đa</th>
+                            <td>@Model.TocDoToiDa km/h</td>
+                        </tr>
+                        <tr>
+                            <th>Chế độ lái</th>
+                            <td>@Model.CheDoChay</td>
+                        </tr>
+                        <tr>
+                            <th>Phanh tái sinh</th>
+                            <td>@Model.PhanhTaiSinh</td>
+                        </tr>
+                        <tr>
+                            <th>Hộp số</th>
+                            <td>@Model.HopSo</td>
+                        </tr>
+                        <tr>
+                            <th>Dung lượng pin</th>
+                            <td>@Model.DungLuongPin kWh</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+

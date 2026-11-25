@@ -1,0 +1,477 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - VinFast Showroom</title> @Styles.Render("~/Content/css") @Scripts.Render("~/bundles/modernizr")
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="~/Content/Images/test/Logo_of_VinFast_(3D).svg.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        textarea {
+            max-width: 100% !important;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        input {
+            max-width: 100%;
+        }
+
+        select {
+            max-width: 100%;
+        }
+
+            select:focus {
+                outline: none !important;
+                box-shadow: none !important;
+            }
+
+        input:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+        }
+
+        button:focus, .navbar-toggler:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .userCard {
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .userIcon:hover .userCard {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .chucnang div {
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            background-color: rgb(0, 0, 0, 0.80)
+        }
+
+            .chucnang div div {
+                background-color: rgb(0, 0, 0, 0.0)
+            }
+
+        .chucnang:hover div {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+
+
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+    @RenderSection("Styles", required: false)
+
+</head>
+
+
+<body>
+
+    <header class="" style="height: fit-content; background-color: #0C0C0C; ">
+
+
+        @if (TempData["Error"] != null)
+        {
+
+            <div id="errorBox" class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="z-index: 1050; background-color: rgba(0, 0, 0, 0.3); transition: opacity 0.5s;">
+                <div class="card p-4 shadow-lg d-flex justify-content-center align-items-center" style="background-color: rgba(0, 0, 0, 0.75); border-radius: 10px; width: fit-content; height: fit-content">
+                    <img src="~/Content/Images/test/warning_6897039.png" style="height:10%; width: 10%" />
+                    <h6 class="text-warning text-center mb-0 mt-3">@TempData["Error"]</h6>
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const box = document.getElementById("errorBox");
+                    if (box) {
+                        setTimeout(() => {
+                            box.style.opacity = "0";
+                            setTimeout(() => box.remove(), 300);
+                        }, 3000);
+                    }
+                });
+            </script>
+        }
+        @if (TempData["Success"] != null)
+        {
+
+            <div id="success" class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="z-index: 1050; background-color: rgba(0, 0, 0, 0.3); transition: opacity 0.5s;">
+                <div class="card p-4 shadow-lg d-flex justify-content-center align-items-center" style="background-color: rgb(217 214 214 / 0.86); border-radius: 10px; width: fit-content; height: fit-content">
+                    <img src="~/Content/Images/test/success_7518748.png" style="height:10%; width: 10%" />
+                    <h6 class="text-success text-center mb-0 mt-3">@TempData["Success"]</h6>
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const box = document.getElementById("success");
+                    if (box) {
+                        setTimeout(() => {
+                            box.style.opacity = "0";
+                            setTimeout(() => box.remove(), 300);
+                        }, 3000);
+                    }
+                });
+            </script>
+        }
+
+        <div class="container d-flex justify-content-between" style="height: 90px">
+
+            <div class="d-flex justify-content-between w-100 p-2">
+                <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Dashboard", "Home")">
+                    <img src="~/Content/Images/test/logo-1.png" alt="VinFast Logo" style="height: 80%">
+                </a>
+                <ul class="d-flex align-items-center" style="list-style: none;">
+                    <li class="px-2 position-relative userIcon">
+                        <a href="#" class="icon-btn text-light userIcon">
+                            <i class="bi bi-person"></i>
+                        </a>
+                        <div class="card bg-light p-2 position-absolute userCard"
+                             style="border-radius: 5px; z-index: 100; top: 100%; right: 0; width: auto; min-width: 180px; max-width: 300px;">
+                            <ul class="p-0 m-0" style="list-style: none; width: 100%;">
+                                <li class="p-2 text-dark">
+                                    <a href="~/Account/DangKy" class="text-dark">Đăng ký</a>
+                                </li>
+                                @if (Session["user"] == null)
+                                {
+                                    <li class="p-2 text-dark">
+                                        <a href="~/Account/DangNhap" class="text-dark">Đăng nhập</a>
+                                    </li>
+                                    <li class="p-2 border-top">
+                                        <p class="mb-0">Xin chào!</p>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="p-2 text-dark">
+                                        <a href="@Url.Action("DangXuatAction", "Account")" class="text-dark">Đăng xuất</a>
+                                    </li>
+
+                                    {
+                                        var quyen = ((Vinfast.Models.NguoiDung)Session["user"]).QuyenTruyCap;
+                                        if (quyen == "Quản lý" || quyen == "Nhân viên")
+                                        {
+                                            <li class="p-2 text-dark">
+                                                <a href="@Url.Action("Manager", "Manager")" class="text-dark">Manager</a>
+                                            </li>
+                                        }
+
+                                    }
+
+                                    <li class="p-2 border-top">
+                                        <p class="mb-0"><strong>Xin chào !</strong></p>
+                                        <p class="mb-0">@(((Vinfast.Models.NguoiDung)Session["user"]).HoTen)</p>
+                                    </li>
+
+                                }
+                            </ul>
+                        </div>
+
+                    </li>
+                    <li class="p-2">
+                        <a href="~/Cart/GioHang" class="icon-btn position-relative">
+                            <i class="bi bi-cart text-light"></i>
+                            <span id="cart-count" class="badge bg-danger cart-badge">0</span>
+                        </a>
+                    </li>
+
+
+                    <li class="p-3 d-none d-md-block">
+                        @using (Html.BeginForm("TimTheoKeyword_Action", "Home", FormMethod.Get))
+                        {
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="keyword" placeholder="Tìm sản phẩm..." />
+                                <button class="btn btn-dark" type="submit">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        }
+                    </li>
+                </ul>
+
+
+
+
+            </div>
+
+
+        </div>
+        <div class="container">
+            <div class="d-block d-md-none mt-2">
+                @using (Html.BeginForm("TimTheoKeyword_Action", "Home", FormMethod.Get))
+                {
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="keyword" placeholder="Tìm sản phẩm..." />
+                        <button class="btn btn-dark" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark h-50" style="background-color: #0C0C0C;">
+
+            <div class="container">
+
+
+                <button type="button" class="navbar-toggler btn_list" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="bi bi-list"> </span>
+                </button>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (ViewBag.Title == "Manager")
+                        {
+                            <li class="chucnang mx-3">
+                                <a href="/Manager/Manager" class="nav-link text-light ">Trang chủ</a>
+                                <div class="position-absolute w-100" style="left: 0; z-index: 50;">
+                                    <div class="container p-3">
+                                        <h5 class="text-light">Thông tin tổng quan</h5>
+                                        @*@Html.Action()*@
+                                    </div>
+                                </div>
+                            </li>
+                            var quyen = ((Vinfast.Models.NguoiDung)Session["user"]).QuyenTruyCap;
+                            if (quyen == "Quản lý")
+                            {
+                                <li class="chucnang mx-3">
+                                    <a href="~/Manager/Taikhoan" class="nav-link text-light">Tài khoản</a>
+                                    <div class="position-absolute w-100" style="left: 0; z-index: 50;">
+                                        <div class="container p-3">
+                                            <a class="text-light"><strong>Tất cả tài khoản</strong></a>
+                                            <ul class="text-decoration-none" style="list-style-type: none;">
+                                                <li>
+                                                    <a href="@Url.Action("LocTaiKhoanNhanVien", "Manager")" class="text-light m-2">Tài khoản nhân viên</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("LocTaiKhoanKhachHang", "Manager")" class="text-light m-2">Tài khoản người mua hàng</a>
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+
+                            <li class="chucnang mx-3">
+                                <a href="/SanPham/DSSanPham" class="nav-link text-light">Sản phẩm</a>
+                                <div class="position-absolute w-100 " style="left: 0; z-index: 50;">
+                                    <div class="container p-3">
+                                        <ul class="text-decoration-none" style="list-style-type: none;">
+                                            <li>
+                                                <a href="/SanPham/DSSanPham" class="text-light m-2">Danh sách sản phẩm</a>
+                                            </li>
+                                            <li>
+                                                <a href="/SanPham/CreateSanPham" class="text-light m-2">Thêm sản phẩm mới</a>
+                                            </li>
+                                            <li>
+                                                <a href="/Manager/QuanLyLoaiSanPham" class="text-light m-2">Quản lý loại sản phẩm</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="chucnang mx-3">
+                                <a href="~/Voucher/DSVoucher" class="nav-link text-light">Voucher</a>
+                                <div class="position-absolute w-100" style="left: 0; z-index: 50;">
+                                    <div class="container p-3">
+                                        <ul class="text-decoration-none" style="list-style-type: none;">
+                                            <li>
+                                                <a href="~/Voucher/DSVoucher" class="text-light m-2">Danh sách các voucher</a>
+                                            </li>
+                                            <li>
+                                                <a href="~/Voucher/CreateVoucher" class="text-light m-2">Thêm voucher mới</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="chucnang mx-3">
+                                <a href="/Manager/LaiThu" class="nav-link text-light">Lái thử</a> <div class="position-absolute w-100 " style="left: 0; z-index: 50;">
+                                    <div class="container p-3">
+                                        <a href="/Manager/LaiThu" class="text-light">Tất cả lái thử</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="chucnang mx-3">
+                                <a href="/Manager/HoaDon" class="nav-link text-light">Hóa đơn</a> <div class="position-absolute w-100 " style="left: 0; z-index: 50;">
+                                    <div class="container p-3">
+                                        <a href="/Manager/HoaDon" class="text-light">Tất cả hóa đơn</a>
+                                        @*@Html.Action()*@
+                                    </div>
+                                </div>
+                            </li>
+                            if (quyen == "Quản lý")
+                            {
+                                <li class="chucnang mx-3">
+                                    <a href="/Manager/DoanhThu" class="nav-link text-light">Doanh thu</a> <div class="position-absolute w-100 " style="left: 0; z-index: 50;">
+                                        <div class="container p-3">
+                                            <a href="/Manager/DoanhThu" class="text-light">Tổng quan doanh thu</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+
+                        }
+                        else
+                        {
+
+                            <li class="chucnang mx-3">
+                                <a href="@Url.Action("Dashboard","Home")" class="nav-link text-light ">Trang chủ</a>
+                                <div class="position-absolute w-100" style="left: 0; z-index: 50; ">
+                                    <div class="container p-3">
+                                        <h5 class="text-light">Sản phẩm nổi bật</h5>
+                                        @Html.Action("_SPNoiBatTheoLoai", "Home")
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="chucnang mx-3">
+                                <a href="@Url.Action("GioiThieu","Home")" class="nav-link text-light">Giới thiệu</a>
+                                <div class="position-absolute w-100" style="left: 0; z-index: 50;">
+                                    <div class="container p-3">
+                                        <a href="/Home/GioiThieu" class="text-light"><strong>Vinfast showroom</strong></a>
+                                        <ul style="list-style-type: none;">
+                                            <li class="p-2">
+                                                <a class="text-light" href="@Url.Action("GioiThieu", "Home")#tamnhinsumenh">Tầm nhìn & sứ mệnh</a>
+
+                                            </li>
+                                            <li class="p-2">
+                                                <a class="text-light" href="@Url.Action("GioiThieu", "Home")#giatricotloi">Giá trị cốt lõi</a>
+
+                                            </li>
+                                            <li class="p-2">
+                                                <a class="text-light" href="@Url.Action("GioiThieu", "Home")#cacdongsanpham">các dòng sản phẩm</a>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </li>
+                            <li class="chucnang mx-3">
+                                <a href="@Url.Action("DongXe","Home")" class="nav-link text-light">Dòng xe</a>
+                                <div class="position-absolute w-100 " style="left: 0; z-index: 50;">
+                                    <div class="container p-3">
+                                        <a href="/Home/DongXe" class="text-light">Tất cả dòng xe</a>
+                                        @Html.Action("_LoaiSP", "Home")
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="chucnang mx-3">
+                                <a href="@Url.Action("KhuyenMai","Home")" class="nav-link text-light">Khuyến mãi</a>
+                                <div class="position-absolute w-100" style="left: 0; z-index: 50;">
+                                    <div class="container p-3">
+                                        <h5 class="text-light">Tất cả khuyến mãi</h5>
+                                        @*@Html.Action()*@
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="chucnang mx-3">
+                                <a href="@Url.Action("Lienhe","Home")" class="nav-link text-light">Liên hệ</a> <div class="position-absolute w-100 " style="left: 0; z-index: 50;">
+                                    <div class="container p-3">
+                                        <a href="/Home/LienHe" class="text-light">Liên hệ với chúng tôi</a>
+                                        @*@Html.Action()*@
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="chucnang mx-3">
+                                <a href="@Url.Action("DangKyLaiThu","Home")" class="nav-link text-light">Đăng kí lái thử</a> <div class="position-absolute w-100 " style="left: 0; z-index: 50;">
+                                    <!--<div class="container p-3">
+                                        <a href="/Home/LienHe" class="text-light">Liên hệ với chúng tôi</a>-->
+                                    @*@Html.Action()*@
+                                    <!--</div>-->
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    @{
+        string mainStyle = "";
+        if (ViewBag.Title == "Đăng nhập" || ViewBag.Title == "Đăng ký")
+        {
+            mainStyle = "background: linear-gradient(135deg, #0d1b2a, #1b263b);";
+        }
+    }
+    <main class="min-vh-100 p-0" style="@mainStyle">
+        @RenderBody()
+    </main>
+
+    <footer class="text-white pt-5 pb-3" style=" background-color: #0C0C0C; ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <img src="~/Content/Images/test/logo-1.png" alt="VinFast Logo" style="height:50px;">
+                    <p class="mt-2" style="font-size:0.9rem;"> VinFast Showroom – Nơi trải nghiệm các dòng xe điện và xe sang, cam kết chất lượng và dịch vụ tốt nhất. </p>
+                </div> <div class="col-md-4 mb-3">
+                    <h6 class="text-uppercase fw-bold mb-2" style="color:#007bff;">Liên kết nhanh</h6> <ul class="list-unstyled">
+                        <li>@Html.ActionLink("Trang chủ", "Dashboard", "Home", null, new { @class = "text-white text-decoration-none" })</li>
+                        <li>@Html.ActionLink("Giới thiệu", "GioiThieu", "Home", null, new { @class = "text-white text-decoration-none" })</li>
+                        <li>@Html.ActionLink("Dòng xe", "DongXe", "Home", null, new { @class = "text-white text-decoration-none" })</li>
+                        <li>@Html.ActionLink("Khuyến mãi", "KhuyenMai", "Home", null, new { @class = "text-white text-decoration-none" })</li>
+                        <li>@Html.ActionLink("Liên hệ", "LienHe", "Home", null, new { @class = "text-white text-decoration-none" })</li>
+                    </ul>
+                </div> <div class="col-md-4 mb-3">
+                    <h6 class="text-uppercase fw-bold mb-2" style="color:#007bff;">Kết nối với chúng tôi</h6>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white fs-5"><i class="bi bi-facebook"></i></a> <a href="#" class="text-white fs-5">
+                            <i class="bi bi-twitter"></i>
+                        </a> <a href="#" class="text-white fs-5"><i class="bi bi-instagram"></i></a> <a href="#" class="text-white fs-5"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+            </div> <hr class="bg-secondary"> <div class="text-center pt-2" style="font-size:0.85rem;"> &copy; @DateTime.Now.Year - VinFast Showroom | Designed by 3 ngọn nến lung linh </div>
+        </div>
+    </footer> @Scripts.Render("~/bundles/jquery") @Scripts.Render("~/bundles/bootstrap") @RenderSection("scripts", required: false)
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "/Cart/CartItemCount",
+                type: "GET",
+                success: function (res) {
+                    $("#cart-count").text(res);
+                }
+            });
+        });
+    </script>
+
+
+
+</body>
+</html>

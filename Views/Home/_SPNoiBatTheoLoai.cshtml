@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Vinfast.Models.ThongTinSanPhamCoAnh>
+
+@{
+    Layout = null;
+}
+
+
+<div class="container py-2">
+    <ul class="horizontal-list">
+        @foreach (var item in Model)
+        {
+            <li>
+                <a  href="@Url.Action("Dashboard", "Home")#@item.TenSP">@item.TenSP</a>
+            </li>
+        }
+    </ul>
+
+</div>
+<style>
+    .horizontal-list {
+        display: flex; 
+        flex-wrap: wrap; 
+        list-style: none; 
+        padding: 0;
+        margin: 0;
+    }
+
+        .horizontal-list li {
+            margin-right: 20px; 
+            margin-bottom: 10px; 
+        }
+
+        .horizontal-list a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .horizontal-list a {
+            color: white;
+            text-decoration: none;
+        }
+
+            .horizontal-list a:hover {
+                color: blue;
+            }
+
+</style>

@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Vinfast.Models.Voucher>
+
+@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .voucher-table th {
+        background: #0d6efd;
+        color: white;
+        text-align: center;
+    }
+
+    .voucher-table td {
+        vertical-align: middle;
+    }
+
+    .badge-expired {
+        background-color: #dc3545 !important;
+    }
+
+    .badge-valid {
+        background-color: #198754 !important;
+    }
+
+    .badge-warning {
+        background-color: #ffc107 !important;
+        color: black !important;
+    }
+</style>
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between mb-3">
+        <h2 class="fw-bold">Danh sách Voucher</h2>
+        <a href="@Url.Action("CreateVoucher","Voucher")"class="btn btn-primary px-4">Tạo Voucher</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover text-center voucher-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Mã Voucher</th>
+                            <th>Ghi chú</th>
+                            <th>Giảm giá</th>
+                            <th>Ngày tạo</th>
+                            <th>Ngày hết hạn</th>
+                            <th>Số lượng</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var trangThai = "";
+                            var badge = "";
+
+                            if (item.SoLuong <= 0)
+                            {
+                                trangThai = "Hết số lượng";
+                                badge = "badge badge-warning";
+                            }
+                            else if (item.NgayHetHan < DateTime.Today)
+                            {
+                                trangThai = "Hết hạn";
+                                badge = "badge badge-expired";
+                            }
+                            else
+                            {
+                                trangThai = "Còn hiệu lực";
+                                badge = "badge badge-valid";
+                            }
+
+                            <tr>
+                                <td>@item.MaVoucher</td>
+                                <td>@item.GhiChu</td>
+                                <td>@(item.GiamGia)%</td>
+                                <td>@(item.NgayTao.ToString("dd/MM/yyyy"))</td>
+                                <td>@(item.NgayHetHan.ToString("dd/MM/yyyy"))</td>
+                                <td>@(item.SoLuong)</td>
+
+                                <td>
+                                    <span class="@badge px-2 py-1 rounded">
+                                        @trangThai
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("SuaVoucher","Voucher", new { mavc = item.MaVoucher })" class="btn btn-sm btn-warning">Sửa</a>
+                                    <a href="@Url.Action("XoaVoucher_Action","Voucher", new { mavc = item.MaVoucher })" onclick="return confirm('Bạn có chắc muốn xóa voucher này không?');" class="btn btn-sm btn-danger">Xóa</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
